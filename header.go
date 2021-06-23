@@ -1,13 +1,9 @@
 package go3mx
 
-const (
-	MAGIC_NUMBER = "3MXBO"
+import (
+	"encoding/json"
+	"io"
 )
-
-type File struct {
-	Magic []byte
-	Size  uint32
-}
 
 type Node struct {
 	Id                string     `json:"id"`
@@ -34,10 +30,22 @@ type Resource struct {
 	BBoXMax *[3]float64 `json:"bbMax,omitempty"`
 	Texture *string     `json:"texture,omitempty"`
 	File    *string     `json:"file,omitempty"`
+	buffer  []byte
 }
 
 type Header struct {
 	Version   uint32     `json:"version"`
 	Nodes     []Node     `json:"nodes"`
 	Resources []Resource `json:"resources"`
+}
+
+func (o *Header) ToJson() string {
+	b, _ := json.Marshal(o)
+	return string(b)
+}
+
+func HeaderFromJson(data io.Reader) *Header {
+	var o *Header
+	json.NewDecoder(data).Decode(&o)
+	return o
 }

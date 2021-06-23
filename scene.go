@@ -1,5 +1,10 @@
 package go3mx
 
+import (
+	"encoding/json"
+	"io"
+)
+
 type Scene struct {
 	Version     int               `json:"3mxVersion"`
 	Name        string            `json:"name"`
@@ -17,4 +22,15 @@ type Layer struct {
 	SRS         string     `json:"SRS"`
 	SRSOrigin   [3]float64 `json:"SRSOrigin"`
 	Root        string     `json:"root"`
+}
+
+func (o *Scene) ToJson() string {
+	b, _ := json.Marshal(o)
+	return string(b)
+}
+
+func SceneFromJson(data io.Reader) *Scene {
+	var o *Scene
+	json.NewDecoder(data).Decode(&o)
+	return o
 }
