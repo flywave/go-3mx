@@ -49,7 +49,11 @@ func (m *Mesh) toCTM() *ctm.Mesh {
 }
 
 func (m *Mesh) Resource() Resource {
-	return Resource{}
+	bb := m.BoundBox()
+	min := [3]float32{bb.Min[0], bb.Min[1], bb.Min[2]}
+	max := [3]float32{bb.Max[0], bb.Max[1], bb.Max[2]}
+
+	return Resource{Type: GeometryBufferType, Id: m.ID, Format: FORMAT_CTM, BBoXMin: &min, BBoXMax: &max, Texture: &m.Texture}
 }
 
 func (m *Mesh) Format() string {
@@ -100,17 +104,21 @@ func (m *Mesh) GetID() string {
 type PointCloud struct {
 	Geometry
 	ID        string
-	PointSize float64
+	PointSize uint32
 	Vertices  []vec3.T
 	Colors    []Color
 }
 
-func NewPointCloud(id string, vertices []vec3.T, colors []Color, pointSize float64) Geometry {
+func NewPointCloud(id string, vertices []vec3.T, colors []Color, pointSize uint32) Geometry {
 	return &PointCloud{Vertices: vertices, Colors: colors, PointSize: pointSize, ID: id}
 }
 
 func (m *PointCloud) Resource() Resource {
-	return Resource{}
+	bb := m.BoundBox()
+	min := [3]float32{bb.Min[0], bb.Min[1], bb.Min[2]}
+	max := [3]float32{bb.Max[0], bb.Max[1], bb.Max[2]}
+
+	return Resource{Type: GeometryBufferType, Id: m.ID, Format: FORMAT_XYZ, BBoXMin: &min, BBoXMax: &max, PointSize: &m.PointSize}
 }
 
 func (m *PointCloud) Format() string {

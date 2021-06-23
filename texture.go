@@ -48,7 +48,7 @@ func NewTexture(img image.Image, id string, format string) *Texture {
 }
 
 func (t *Texture) Resource() Resource {
-	return Resource{}
+	return Resource{Type: TextureBufferType, Id: t.ID, Format: t.Format}
 }
 
 func (t *Texture) GetID() string {

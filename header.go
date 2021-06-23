@@ -14,8 +14,8 @@ const (
 
 type Node struct {
 	Id                string     `json:"id"`
-	BBoXMin           [3]float64 `json:"bbMin"`
-	BBoXMax           [3]float64 `json:"bbMax"`
+	BBoXMin           [3]float32 `json:"bbMin"`
+	BBoXMax           [3]float32 `json:"bbMax"`
 	MaxScreenDiameter float64    `json:"maxScreenDiameter"`
 	Children          []string   `json:"children"`
 	Resources         []string   `json:"resources"`
@@ -26,8 +26,8 @@ type Resource struct {
 	Id        string      `json:"id"`
 	Format    string      `json:"format"`
 	Size      uint32      `json:"size"`
-	BBoXMin   *[3]float64 `json:"bbMin,omitempty"`
-	BBoXMax   *[3]float64 `json:"bbMax,omitempty"`
+	BBoXMin   *[3]float32 `json:"bbMin,omitempty"`
+	BBoXMax   *[3]float32 `json:"bbMax,omitempty"`
 	Texture   *string     `json:"texture,omitempty"`
 	PointSize *uint32     `json:"pointSize,omitempty"`
 	File      *string     `json:"file,omitempty"`
