@@ -7,6 +7,14 @@ import (
 	"os"
 )
 
+var (
+	META_DATA = "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<ModelMetadata version=\"1\">\n<Texture>\n<ColorSource>Visible</ColorSource>\n</Texture>\n</ModelMetadata>\n"
+)
+
+func WriteMetadata(path string) error {
+	return ioutil.WriteFile(path, []byte(META_DATA), os.ModePerm)
+}
+
 type Scene struct {
 	Version     int               `json:"3mxVersion"`
 	Name        string            `json:"name"`
