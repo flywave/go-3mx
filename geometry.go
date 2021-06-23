@@ -43,7 +43,7 @@ func NewMesh(id string, vertices []vec3.T, indices [][3]uint32, normals []vec3.T
 }
 
 func (m *Mesh) toCTM() *ctm.Mesh {
-	cm := ctm.NewMesh(m.Vertices, m.Indices, m.Normals)
+	cm := ctm.NewEmptyMesh()
 	cm.AddUVMap(m.UVCoords, "", m.Texture)
 	return cm
 }
@@ -66,7 +66,7 @@ func (m *Mesh) Marshal() []byte {
 }
 
 func (m *Mesh) Unmarshal(buf []byte) {
-	cm := &ctm.Mesh{}
+	cm := ctm.NewMesh(nil, nil, nil)
 	cm.GetContext().LoadFromBuffer(buf)
 
 	copy(m.Vertices, cm.GetVertices())
