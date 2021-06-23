@@ -66,14 +66,20 @@ func (m *Mesh) Marshal() []byte {
 }
 
 func (m *Mesh) Unmarshal(buf []byte) {
-	cm := ctm.NewMesh(nil, nil, nil)
+	cm := ctm.NewEmptyMesh()
 	cm.GetContext().LoadFromBuffer(buf)
 
-	copy(m.Vertices, cm.GetVertices())
+	vers := cm.GetVertices()
+	m.Vertices = make([]vec3.T, len(vers))
+
+	copy(m.Vertices, vers)
 	if cm.HasNormals() {
+		m.Normals = make([]vec3.T, len(vers))
 		copy(m.Normals, cm.GetNormals())
 	}
-	copy(m.Indices, cm.GetFaces())
+	faces := cm.GetFaces()
+	m.Indices = make([][3]uint32, len(faces))
+	copy(m.Indices, faces)
 
 	if cm.GetUVMapCount() > 0 {
 		size := cm.GetVertCount()
@@ -84,6 +90,8 @@ func (m *Mesh) Unmarshal(buf []byte) {
 		bufHeader.Cap = int(size)
 		bufHeader.Len = int(size)
 		bufHeader.Data = uintptr(unsafe.Pointer(data))
+
+		m.UVCoords = make([]vec2.T, size)
 
 		copy(m.UVCoords, bufSlice)
 	}
