@@ -3,6 +3,8 @@ package go3mx
 import (
 	"encoding/json"
 	"io"
+	"io/ioutil"
+	"os"
 )
 
 type Scene struct {
@@ -33,4 +35,9 @@ func SceneFromJson(data io.Reader) *Scene {
 	var o *Scene
 	json.NewDecoder(data).Decode(&o)
 	return o
+}
+
+func WriteScene(o *Scene, path string) error {
+	buf := []byte(o.ToJson())
+	return ioutil.WriteFile(path, buf, os.ModePerm)
 }

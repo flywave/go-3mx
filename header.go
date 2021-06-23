@@ -5,6 +5,13 @@ import (
 	"io"
 )
 
+const (
+	TextureBufferType  = "textureBuffer"
+	GeometryBufferType = "geometryBuffer"
+	TextureFileType    = "textureFile"
+	GeometryFileType   = "geometryFile"
+)
+
 type Node struct {
 	Id                string     `json:"id"`
 	BBoXMin           [3]float64 `json:"bbMin"`
@@ -14,23 +21,16 @@ type Node struct {
 	Resources         []string   `json:"resources"`
 }
 
-const (
-	TextureBufferType  = "textureBuffer"
-	GeometryBufferType = "geometryBuffer"
-	TextureFileType    = "textureFile"
-	GeometryFileType   = "geometryFile"
-)
-
 type Resource struct {
-	Type    string      `json:"type"`
-	Id      string      `json:"id"`
-	Format  string      `json:"format"`
-	Size    uint32      `json:"size"`
-	BBoXMin *[3]float64 `json:"bbMin,omitempty"`
-	BBoXMax *[3]float64 `json:"bbMax,omitempty"`
-	Texture *string     `json:"texture,omitempty"`
-	File    *string     `json:"file,omitempty"`
-	buffer  []byte
+	Type      string      `json:"type"`
+	Id        string      `json:"id"`
+	Format    string      `json:"format"`
+	Size      uint32      `json:"size"`
+	BBoXMin   *[3]float64 `json:"bbMin,omitempty"`
+	BBoXMax   *[3]float64 `json:"bbMax,omitempty"`
+	Texture   *string     `json:"texture,omitempty"`
+	PointSize *uint32     `json:"pointSize,omitempty"`
+	File      *string     `json:"file,omitempty"`
 }
 
 type Header struct {
