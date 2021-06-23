@@ -18,7 +18,7 @@ var byteorder = binary.LittleEndian
 
 type Archive struct {
 	Magic    []byte
-	Size     uint32
+	Size     int32
 	Header   *Header
 	geos     []Geometry
 	texs     []Texture
@@ -160,7 +160,7 @@ func (a *Archive) Load(rd io.Reader) error {
 		a.Magic = magic
 	}
 
-	err = binary.Read(rd, byteorder, a.Size)
+	err = binary.Read(rd, byteorder, &a.Size)
 	if err != nil {
 		return err
 	}
