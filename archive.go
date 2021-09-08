@@ -32,6 +32,22 @@ func NewArchive(nodes []Node, geos []Geometry, texs []Texture) *Archive {
 	return a
 }
 
+func (a *Archive) Geos() []Geometry {
+	return a.geos
+}
+
+func (a *Archive) Texs() []Texture {
+	return a.texs
+}
+
+func (a *Archive) Buffers() [][]byte {
+	return a.buffers
+}
+
+func (a *Archive) BasePath() string {
+	return a.basePath
+}
+
 func (a *Archive) pack(nodes []Node, geos []Geometry, texs []Texture) [][]byte {
 	a.Header = new(Header)
 	a.Header.Nodes = nodes

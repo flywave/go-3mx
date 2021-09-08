@@ -14,3 +14,13 @@ func Test3mxbReader(t *testing.T) {
 	f.Close()
 
 }
+
+func Test3mxbReader2(t *testing.T) {
+	a := &Archive{}
+	f, _ := os.Open("./testdata/Scene/Data/Model/Model.3mxb")
+
+	a.Load(f)
+
+	f.Close()
+
+}
