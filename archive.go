@@ -86,6 +86,8 @@ func (a *Archive) unpackResource(res Resource, rd io.Reader) error {
 		}
 		tex := &Texture{}
 		tex.Unmarshal(buf)
+		tex.ID = res.Id
+		tex.Format = res.Format
 		a.texs = append(a.texs, *tex)
 	} else if res.Type == GeometryBufferType {
 		buf := make([]byte, res.Size)
@@ -96,10 +98,13 @@ func (a *Archive) unpackResource(res Resource, rd io.Reader) error {
 		if res.Format == FORMAT_CTM {
 			geom := &Mesh{}
 			geom.Unmarshal(buf)
+			geom.ID = res.Id
+			geom.Texture = *res.Texture
 			a.geos = append(a.geos, geom)
 		} else if res.Format == FORMAT_XYZ {
 			geom := &PointCloud{}
 			geom.Unmarshal(buf)
+			geom.ID = res.Id
 			a.geos = append(a.geos, geom)
 		}
 	} else if res.Type == TextureFileType {
@@ -114,6 +119,8 @@ func (a *Archive) unpackResource(res Resource, rd io.Reader) error {
 		}
 		tex := &Texture{}
 		tex.Unmarshal(buf)
+		tex.ID = res.Id
+		tex.Format = res.Format
 		a.texs = append(a.texs, *tex)
 	} else if res.Type == GeometryFileType {
 		path := path.Join(a.basePath, *res.File)
@@ -128,10 +135,13 @@ func (a *Archive) unpackResource(res Resource, rd io.Reader) error {
 		if res.Format == FORMAT_CTM {
 			geom := &Mesh{}
 			geom.Unmarshal(buf)
+			geom.ID = res.Id
+			geom.Texture = *res.Texture
 			a.geos = append(a.geos, geom)
 		} else if res.Format == FORMAT_XYZ {
 			geom := &PointCloud{}
 			geom.Unmarshal(buf)
+			geom.ID = res.Id
 			a.geos = append(a.geos, geom)
 		}
 	}

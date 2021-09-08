@@ -17,7 +17,7 @@ func Test3mxbReader(t *testing.T) {
 
 func Test3mxbReader2(t *testing.T) {
 	a := &Archive{}
-	f, _ := os.Open("./testdata/Scene/Data/Model/Model.3mxb")
+	f, _ := os.Open("./testdata/Scene/Data/0424_DMP.3mxb")
 
 	a.Load(f)
 
