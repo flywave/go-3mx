@@ -4,5 +4,6 @@ go 1.13
 
 require (
 	github.com/flywave/go-ctm v0.0.0-20210623091336-1da4f256fe01 // indirect
+	github.com/flywave/go-obj v0.0.0-20210526030750-7674effc90f7 // indirect
 	github.com/flywave/go3d v0.0.0-20210529142521-14eb5aca1290 // indirect
 )

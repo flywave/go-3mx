@@ -15,6 +15,7 @@ import (
 const (
 	FORMAT_CTM = "ctm"
 	FORMAT_XYZ = "xyz"
+	FORMAT_OBJ = "obj"
 )
 
 type Color [4]uint8

@@ -8,5 +8,7 @@ github.com/flywave/go-ctm v0.0.0-20210623082811-3aab5c442cd2 h1:B2nOCRve+gSPbTiY
 github.com/flywave/go-ctm v0.0.0-20210623082811-3aab5c442cd2/go.mod h1:1pIrJjoy5Qlu8nSylrmW42vA0bxwCDh1izq7DCoJGhQ=
 github.com/flywave/go-ctm v0.0.0-20210623091336-1da4f256fe01 h1:vdeY9g1cHfKQcrYaEXY2iqdn6t5CRFjgUNmGnIHEYTk=
 github.com/flywave/go-ctm v0.0.0-20210623091336-1da4f256fe01/go.mod h1:1pIrJjoy5Qlu8nSylrmW42vA0bxwCDh1izq7DCoJGhQ=
+github.com/flywave/go-obj v0.0.0-20210526030750-7674effc90f7 h1:voEDsqS6skCwuM7ZphbxrsKd7DqtpMRlDUsmO5Tl1T0=
+github.com/flywave/go-obj v0.0.0-20210526030750-7674effc90f7/go.mod h1:+yO+PGuuoa4ti3kBBXNrtmlQ2KR1WlfQMPHWOMObcnU=
 github.com/flywave/go3d v0.0.0-20210529142521-14eb5aca1290 h1:d/Quyfh7G/2QqZzsNsZTbgA5c5hUwngwVoGTmj/43BU=
 github.com/flywave/go3d v0.0.0-20210529142521-14eb5aca1290/go.mod h1:QbQZlarSgCPYFAmoTduiDUd4JCnolimXUswTAnSrFWY=

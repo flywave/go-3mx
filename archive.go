@@ -8,6 +8,9 @@ import (
 	"io/ioutil"
 	"os"
 	"path"
+	"path/filepath"
+
+	gobj "github.com/flywave/go-obj"
 )
 
 const (
@@ -30,6 +33,10 @@ func NewArchive(nodes []Node, geos []Geometry, texs []Texture) *Archive {
 	a := &Archive{Magic: []byte(MAGIC_NUMBER)}
 	a.buffers = a.pack(nodes, geos, texs)
 	return a
+}
+
+func (a *Archive) SetBasePath(ph string) {
+	a.basePath = ph
 }
 
 func (a *Archive) Geos() []Geometry {
@@ -143,8 +150,30 @@ func (a *Archive) unpackResource(res Resource, rd io.Reader) error {
 			geom.Unmarshal(buf)
 			geom.ID = res.Id
 			a.geos = append(a.geos, geom)
+		} else if res.Format == FORMAT_OBJ {
+			err := a.readObj(&res)
+			if err != nil {
+				return err
+			}
 		}
 	}
+	return nil
+}
+
+func (a *Archive) readObj(res *Resource) error {
+	ph := filepath.Join(a.basePath, *res.File)
+	f, err := os.Open(ph)
+	if err != nil {
+		return err
+	}
+	rd := gobj.ObjReader{}
+	rd.Read(f)
+	var fs [][3]uint32
+	for _, f := range rd.F {
+		fs = append(fs, [3]uint32{uint32(f.Corners[0].VertexIndex), uint32(f.Corners[1].VertexIndex), uint32(f.Corners[2].VertexIndex)})
+	}
+	mh := NewMesh(res.Id, rd.V, fs, rd.VN, rd.VT, *res.Texture)
+	a.geos = append(a.geos, mh)
 	return nil
 }
 
