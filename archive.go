@@ -170,7 +170,10 @@ func (a *Archive) readObj(res *Resource) error {
 	rd.Read(f)
 	var fs [][3]uint32
 	for _, f := range rd.F {
-		fs = append(fs, [3]uint32{uint32(f.Corners[0].VertexIndex), uint32(f.Corners[1].VertexIndex), uint32(f.Corners[2].VertexIndex)})
+		fc := f.Triangulate(rd.V)
+		for _, trg := range fc {
+			fs = append(fs, [3]uint32{uint32(trg[0].VertexIndex), uint32(trg[1].VertexIndex), uint32(trg[2].VertexIndex)})
+		}
 	}
 	mh := NewMesh(res.Id, rd.V, fs, rd.VN, rd.VT, *res.Texture)
 	a.geos = append(a.geos, mh)
